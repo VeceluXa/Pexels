@@ -10,4 +10,6 @@ object PexelIcons {
     val HomeOutline: Painter @Composable get() = painterResource(R.drawable.ic_home_outline)
     val BookmarkFilled: Painter @Composable get() = painterResource(R.drawable.ic_bookmark_filled)
     val BookmarkOutline: Painter @Composable get() = painterResource(R.drawable.ic_bookmark_outline)
+    val Search: Painter @Composable get() = painterResource(R.drawable.ic_search)
+    val Close: Painter @Composable get() = painterResource(R.drawable.ic_close)
 }
