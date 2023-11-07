@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.MySplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/red</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/animation_splash</item>
+        <item name="windowSplashScreenAnimationDuration">3600</item>
+        <item name="postSplashScreenTheme">@style/Theme.Pexels</item>
+    </style>
+</resources>
