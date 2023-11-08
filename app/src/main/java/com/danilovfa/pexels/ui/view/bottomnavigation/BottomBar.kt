@@ -1,4 +1,4 @@
-package com.danilovfa.pexels.ui.composables.bottomnavigation
+package com.danilovfa.pexels.ui.view.bottomnavigation
 
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.material3.MaterialTheme

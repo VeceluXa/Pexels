@@ -1,4 +1,4 @@
-package com.danilovfa.pexels.ui.composables.toolbar
+package com.danilovfa.pexels.ui.view.toolbar
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
@@ -39,9 +39,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.danilovfa.pexels.R
-import com.danilovfa.pexels.ui.composables.loader.HorizontalLoader
-import com.danilovfa.pexels.ui.composables.preview.ThemePreviewParameter
-import com.danilovfa.pexels.ui.theme.PexelIcons
+import com.danilovfa.pexels.ui.view.loader.HorizontalLoader
+import com.danilovfa.pexels.ui.preview.ThemePreviewParameter
+import com.danilovfa.pexels.ui.drawable.PexelIcons
 import com.danilovfa.pexels.ui.theme.PexelsTheme
 
 @Composable

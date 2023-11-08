@@ -1,4 +1,4 @@
-package com.danilovfa.pexels.ui.composables.preview
+package com.danilovfa.pexels.ui.preview
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 

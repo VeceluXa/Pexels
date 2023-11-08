@@ -1,4 +1,4 @@
-package com.danilovfa.pexels.ui.composables.bottomnavigation
+package com.danilovfa.pexels.ui.view.bottomnavigation
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope

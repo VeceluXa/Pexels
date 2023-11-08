@@ -1,4 +1,4 @@
-package com.danilovfa.pexels.ui.composables.loader
+package com.danilovfa.pexels.ui.view.loader
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.material3.LinearProgressIndicator

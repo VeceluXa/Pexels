@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.danilovfa.pexels.features.NavGraphs
-import com.danilovfa.pexels.ui.composables.bottomnavigation.BottomBar
+import com.danilovfa.pexels.ui.view.bottomnavigation.BottomBar
 import com.ramcosta.composedestinations.DestinationsNavHost
 
 

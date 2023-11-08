@@ -1,4 +1,4 @@
-package com.danilovfa.pexels.ui.composables.bottomnavigation
+package com.danilovfa.pexels.ui.view.bottomnavigation
 
 import android.content.Context
 import androidx.compose.runtime.Composable
@@ -6,7 +6,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import com.danilovfa.pexels.R
 import com.danilovfa.pexels.features.destinations.FavoriteScreenDestination
 import com.danilovfa.pexels.features.destinations.HomeScreenDestination
-import com.danilovfa.pexels.ui.theme.PexelIcons
+import com.danilovfa.pexels.ui.drawable.PexelIcons
 import com.ramcosta.composedestinations.spec.DirectionDestinationSpec
 
 data class NavigationTab(

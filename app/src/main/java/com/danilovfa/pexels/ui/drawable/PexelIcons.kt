@@ -1,4 +1,4 @@
-package com.danilovfa.pexels.ui.theme
+package com.danilovfa.pexels.ui.drawable
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
