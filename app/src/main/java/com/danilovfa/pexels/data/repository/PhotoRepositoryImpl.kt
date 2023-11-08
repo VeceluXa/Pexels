@@ -7,18 +7,19 @@ import com.danilovfa.pexels.data.paging.pagingFlow
 import com.danilovfa.pexels.data.remote.PexelsApi
 import com.danilovfa.pexels.domain.model.Photo
 import com.danilovfa.pexels.domain.repository.PhotoRepository
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class PhotoRepositoryImpl @Inject constructor(
     private val pexelsDao: PexelsDao,
-    private val pexelsApi: PexelsApi
+    private val pexelsApi: PexelsApi,
+    private val ioDispatcher: CoroutineDispatcher
 ) : PhotoRepository {
     override fun getPhotos(query: String): Flow<PagingData<Photo>> =
         pagingFlow { pageNumber, pageSize ->
-            withContext(Dispatchers.IO) {
+            withContext(ioDispatcher) {
                 val photosEnvelope = if (query.isEmpty()) {
                     pexelsApi.getPopularPhotos(page = pageNumber, pageSize = pageSize)
                 } else {
@@ -33,7 +34,7 @@ class PhotoRepositoryImpl @Inject constructor(
 
     override fun getFavoritePhotos(): Flow<PagingData<Photo>> =
         pagingFlow { pageNumber, pageSize ->
-            withContext(Dispatchers.IO) {
+            withContext(ioDispatcher) {
                 pexelsDao.getPhotos(
                     offset = pageNumber * pageSize,
                     pageSize = pageSize
@@ -42,7 +43,11 @@ class PhotoRepositoryImpl @Inject constructor(
         }
 
 
-    override suspend fun addToFavorites(photo: Photo) = withContext(Dispatchers.IO) {
+    override suspend fun addToFavorites(photo: Photo) = withContext(ioDispatcher) {
         pexelsDao.insertPhoto(photo.toEntity())
+    }
+
+    override suspend fun getFeaturedCollections(): List<String> = withContext(ioDispatcher) {
+        return@withContext pexelsApi.getFeaturedCollections().collections.map { it.title }
     }
 }

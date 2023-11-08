@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Pexels"
         tools:targetApi="31">
         <activity
-            android:name=".features.root.MainActivity"
+            android:name=".presentation.screen.root.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.MySplashScreen">
             <intent-filter>

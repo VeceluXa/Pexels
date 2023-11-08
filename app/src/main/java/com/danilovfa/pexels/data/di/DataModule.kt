@@ -15,6 +15,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor.*
 import retrofit2.Retrofit
@@ -64,5 +65,9 @@ object DataModule {
     @Provides
     @Singleton
     fun providePhotoRepository(pexelsDao: PexelsDao, pexelsApi: PexelsApi): PhotoRepository =
-        PhotoRepositoryImpl(pexelsDao = pexelsDao, pexelsApi = pexelsApi)
+        PhotoRepositoryImpl(
+            pexelsDao = pexelsDao,
+            pexelsApi = pexelsApi,
+            ioDispatcher = Dispatchers.IO
+        )
 }
