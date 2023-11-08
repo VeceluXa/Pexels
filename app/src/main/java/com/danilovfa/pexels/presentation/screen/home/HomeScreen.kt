@@ -1,9 +1,7 @@
 package com.danilovfa.pexels.presentation.screen.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,7 +9,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -122,18 +121,18 @@ private fun HomeLayout(
 
 @Composable
 private fun ChipsContent(collections: List<ChipUi>, controller: HomeController) {
-    val scrollState = rememberScrollState()
+    val listState = rememberLazyListState()
 
     LaunchedEffect(collections) {
-        scrollState.animateScrollTo(0)
+        listState.animateScrollToItem(0)
     }
 
-    Row(
+    LazyRow(
         modifier = Modifier
-            .padding(horizontal = 24.dp, vertical = 12.dp)
-            .horizontalScroll(scrollState)
+            .padding(horizontal = 24.dp, vertical = 12.dp),
+        state = listState
     ) {
-        repeat(collections.size) { position ->
+        items(collections.size) {position ->
             Chip(chip = collections[position], onClick = controller::onCollectionClicked)
             if (position != collections.lastIndex) {
                 Spacer(Modifier.width(12.dp))
