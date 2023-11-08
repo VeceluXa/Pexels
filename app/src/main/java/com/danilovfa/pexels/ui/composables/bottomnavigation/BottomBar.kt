@@ -7,10 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
-import com.danilovfa.pexels.ui.screen.NavGraphs
-import com.danilovfa.pexels.ui.screen.appCurrentDestinationAsState
-import com.danilovfa.pexels.ui.screen.destinations.Destination
-import com.danilovfa.pexels.ui.screen.startAppDestination
+import com.danilovfa.pexels.features.NavGraphs
+import com.danilovfa.pexels.features.appCurrentDestinationAsState
+import com.danilovfa.pexels.features.destinations.Destination
+import com.danilovfa.pexels.features.startAppDestination
+
 
 @Composable
 fun BottomBar(

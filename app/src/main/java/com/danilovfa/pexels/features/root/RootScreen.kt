@@ -1,4 +1,4 @@
-package com.danilovfa.pexels.ui.screen.root
+package com.danilovfa.pexels.features.root
 
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.consumeWindowInsets
@@ -8,8 +8,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.danilovfa.pexels.features.NavGraphs
 import com.danilovfa.pexels.ui.composables.bottomnavigation.BottomBar
-import com.danilovfa.pexels.ui.screen.NavGraphs
 import com.ramcosta.composedestinations.DestinationsNavHost
 
 

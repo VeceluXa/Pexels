@@ -6,6 +6,7 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,12 +31,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
+import com.danilovfa.pexels.R
 import com.danilovfa.pexels.ui.composables.loader.HorizontalLoader
+import com.danilovfa.pexels.ui.composables.preview.ThemePreviewParameter
 import com.danilovfa.pexels.ui.theme.PexelIcons
+import com.danilovfa.pexels.ui.theme.PexelsTheme
 
 @Composable
 fun Search(
@@ -82,7 +89,9 @@ fun Search(
 
         HorizontalLoader(
             loading = loading,
-            modifier = Modifier.fillMaxWidth().height(4.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(4.dp)
         )
     }
 }
@@ -194,3 +203,28 @@ private fun createSearchTextFieldColors(): TextFieldColors = TextFieldDefaults.t
     focusedIndicatorColor = Color.Transparent,
     unfocusedIndicatorColor = Color.Transparent
 )
+
+@Preview
+@Composable
+fun Preview(@PreviewParameter(ThemePreviewParameter::class) isDarkMode: Boolean) {
+    PexelsTheme(darkTheme = isDarkMode) {
+        Column(Modifier.background(MaterialTheme.colorScheme.background)) {
+            Search(
+                value = "",
+                onValueChange = {},
+                onValueResetClick = {},
+                placeholderText = stringResource(R.string.search)
+            )
+
+            Spacer(Modifier.height(64.dp))
+
+            Search(
+                value = "Example search value",
+                onValueChange = {},
+                onValueResetClick = {},
+                placeholderText = stringResource(R.string.search),
+                loading = true
+            )
+        }
+    }
+}

@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.painter.Painter
 import com.danilovfa.pexels.R
-import com.danilovfa.pexels.ui.screen.destinations.FavoriteScreenDestination
-import com.danilovfa.pexels.ui.screen.destinations.HomeScreenDestination
+import com.danilovfa.pexels.features.destinations.FavoriteScreenDestination
+import com.danilovfa.pexels.features.destinations.HomeScreenDestination
 import com.danilovfa.pexels.ui.theme.PexelIcons
 import com.ramcosta.composedestinations.spec.DirectionDestinationSpec
 

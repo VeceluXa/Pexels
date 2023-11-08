@@ -1,4 +1,4 @@
-package com.danilovfa.pexels.ui.screen.favorites
+package com.danilovfa.pexels.features.favorites
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
