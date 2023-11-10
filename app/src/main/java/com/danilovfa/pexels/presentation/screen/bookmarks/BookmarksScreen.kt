@@ -35,6 +35,7 @@ import com.danilovfa.pexels.presentation.common.view.loader.HorizontalLoader
 import com.danilovfa.pexels.presentation.common.view.photo.PhotosGrid
 import com.danilovfa.pexels.presentation.common.view.toolbar.Toolbar
 import com.danilovfa.pexels.presentation.model.PhotoUi
+import com.danilovfa.pexels.presentation.screen.destinations.BookmarksScreenDestination
 import com.danilovfa.pexels.presentation.screen.destinations.DetailsScreenDestination
 import com.danilovfa.pexels.presentation.screen.destinations.HomeScreenDestination
 import com.danilovfa.pexels.presentation.screen.details.DetailsNavArgs
@@ -83,6 +84,7 @@ fun BookmarksScreen(
             )
         },
         onExploreClick = {
+            destinationsNavigator.popBackStack()
             destinationsNavigator.navigate(HomeScreenDestination)
         }
     )
