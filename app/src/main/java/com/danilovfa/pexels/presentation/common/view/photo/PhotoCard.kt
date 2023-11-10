@@ -28,7 +28,7 @@ import com.danilovfa.pexels.presentation.model.PhotoUi
 @Composable
 fun PhotoCard(
     photo: PhotoUi,
-    onClick: (PhotoUi) -> Unit,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
     doShowName: Boolean = false
 ) {
@@ -44,17 +44,9 @@ fun PhotoCard(
             )
             .clip(RoundedCornerShape(20.dp))
             .clickable {
-                onClick(photo)
+                onClick()
             }
     ) {
-//        val state = rememberAsyncImagePainter(
-//            ImageRequest.Builder(LocalContext.current)
-//                .data(photo.urlCompressed)
-//                .scale(Scale.FILL)
-//                .crossfade(true)
-//                .memoryCachePolicy(CachePolicy.ENABLED)
-//                .build()
-//        )
 
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
@@ -85,6 +77,6 @@ fun PhotoCard(
     }
 }
 
-private fun getAspectRatio(width: Int, height: Int): Float {
+internal fun getAspectRatio(width: Int, height: Int): Float {
     return width.toFloat() / height
 }

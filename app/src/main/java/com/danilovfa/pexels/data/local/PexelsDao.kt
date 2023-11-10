@@ -13,4 +13,10 @@ interface PexelsDao {
 
     @Query("SELECT * FROM photoEntity LIMIT :pageSize OFFSET :offset")
     fun getPhotos(offset: Int, pageSize: Int, ): List<PhotoEntity>
+
+    @Query("DELETE FROM photoEntity WHERE id = :id")
+    fun deletePhoto(id: Long)
+
+    @Query("SELECT isBookmarked FROM photoEntity WHERE id = :id")
+    fun isBookmarked(id: Long): Boolean
 }

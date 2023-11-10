@@ -11,7 +11,8 @@ data class PhotoEntity(
     val urlCompressed: String,
     val width: Int,
     val height: Int,
-    val authorName: String
+    val authorName: String,
+    val isBookmarked: Boolean
 ) {
     fun toDomain() = Photo(
         id = id,
@@ -19,7 +20,8 @@ data class PhotoEntity(
         urlCompressed = urlCompressed,
         width = width,
         height = height,
-        authorName = authorName
+        authorName = authorName,
+        isBookmarked = isBookmarked
     )
 }
 
@@ -29,5 +31,6 @@ fun Photo.toEntity() = PhotoEntity(
     urlCompressed = urlCompressed,
     width = width,
     height = height,
-    authorName = authorName
+    authorName = authorName,
+    isBookmarked = isBookmarked
 )

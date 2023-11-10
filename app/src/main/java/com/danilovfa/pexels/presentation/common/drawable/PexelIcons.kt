@@ -13,4 +13,6 @@ object PexelIcons {
     val Search: Painter @Composable get() = painterResource(R.drawable.ic_search)
     val Close: Painter @Composable get() = painterResource(R.drawable.ic_close)
     val NoNetwork: Painter @Composable get() = painterResource(R.drawable.ic_no_network)
+    val Back: Painter @Composable get() = painterResource(R.drawable.ic_back)
+    val Download: Painter @Composable get() = painterResource(R.drawable.ic_download)
 }

@@ -43,6 +43,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.danilovfa.pexels.R
+import com.danilovfa.pexels.presentation.common.animation.IconAnimatedVisibility
 import com.danilovfa.pexels.presentation.common.preview.ThemePreviewParameter
 import com.danilovfa.pexels.presentation.common.drawable.PexelIcons
 import com.danilovfa.pexels.presentation.common.theme.PexelsTheme
@@ -163,11 +164,7 @@ private fun SearchFieldDecorationBox(
         label = null,
         leadingIcon = null,
         trailingIcon = {
-            AnimatedVisibility(
-                visible = textFieldValue.text.isNotEmpty(),
-                enter = fadeIn() + scaleIn(),
-                exit = fadeOut() + scaleOut(),
-            ) {
+            IconAnimatedVisibility(visible = textFieldValue.text.isNotEmpty()) {
                 IconButton(
                     onClick = onValueResetClick,
                     modifier = Modifier.size(48.dp)
@@ -207,7 +204,7 @@ private fun createSearchTextFieldColors(): TextFieldColors = TextFieldDefaults.t
 
 @Preview
 @Composable
-fun Preview(@PreviewParameter(ThemePreviewParameter::class) isDarkMode: Boolean) {
+private fun Preview(@PreviewParameter(ThemePreviewParameter::class) isDarkMode: Boolean) {
     PexelsTheme(darkTheme = isDarkMode) {
         Column(Modifier.background(MaterialTheme.colorScheme.background)) {
             Search(

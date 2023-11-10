@@ -36,7 +36,7 @@ fun TextButton(
 
 @Preview
 @Composable
-fun Preview() {
+private fun Preview() {
     PexelsTheme {
         TextButton(text = "Example button", onClick = {})
     }

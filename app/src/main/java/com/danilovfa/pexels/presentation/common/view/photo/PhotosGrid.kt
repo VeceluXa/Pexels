@@ -13,10 +13,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,25 +37,38 @@ import kotlin.random.Random
 @Composable
 fun PhotosGrid(
     photos: LazyPagingItems<PhotoUi>,
-    onClick: (PhotoUi) -> Unit,
+    onClick: (PhotoUi, Int) -> Unit,
     onRetryClick: () -> Unit,
     onExploreClick: () -> Unit,
     modifier: Modifier = Modifier,
-    doShowName: Boolean = false,
-    isFavoriteGrid: Boolean = false
+    savedScrollPosition: Int = 0,
+    isBookmarksGrid: Boolean = false
 ) {
+    val listState = rememberLazyStaggeredGridState()
+
+    LaunchedEffect(savedScrollPosition, photos.itemCount) {
+        if (photos.itemCount > 0 && listState.firstVisibleItemIndex == 0) {
+            listState.scrollToItem(savedScrollPosition)
+        }
+    }
+
     Box(
         modifier = modifier
     ) {
         LazyVerticalStaggeredGrid(
             columns = StaggeredGridCells.Fixed(2),
+            state = listState,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(12.dp)
         ) {
             items(photos.itemCount) { position ->
                 photos[position]?.let { photo ->
-                    PhotoCard(photo = photo, onClick = onClick, doShowName = doShowName)
+                    PhotoCard(
+                        photo = photo,
+                        onClick = { onClick(photo, position) },
+                        doShowName = isBookmarksGrid
+                    )
                 }
             }
 
@@ -66,7 +81,7 @@ fun PhotosGrid(
             photos = photos,
             onRetryClick = onRetryClick,
             onExploreClick = onExploreClick,
-            isFavoriteGrid = isFavoriteGrid,
+            isBookmarksGrid = isBookmarksGrid,
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -77,7 +92,7 @@ private fun PhotosGridFullScreenStubs(
     photos: LazyPagingItems<PhotoUi>,
     onRetryClick: () -> Unit,
     onExploreClick: () -> Unit,
-    isFavoriteGrid: Boolean,
+    isBookmarksGrid: Boolean,
     modifier: Modifier = Modifier
 ) {
     val loadState = photos.loadState
@@ -89,14 +104,14 @@ private fun PhotosGridFullScreenStubs(
                     .background(MaterialTheme.colorScheme.background)
                     .padding(12.dp)
             ) {
-                items(20) {
+                items(8) {
                     ShimmerItem()
                 }
             }
         }
 
         loadState.refresh is LoadState.NotLoading && photos.itemCount == 0  -> {
-            val textResId = if (isFavoriteGrid) R.string.favorite_empty_stub else R.string.home_empty_stub
+            val textResId = if (isBookmarksGrid) R.string.favorite_empty_stub else R.string.home_empty_stub
             Column(
                 modifier = modifier.background(MaterialTheme.colorScheme.background),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -104,7 +119,7 @@ private fun PhotosGridFullScreenStubs(
             ) {
                 Text(text = stringResource(textResId))
                 Spacer(Modifier.height(12.dp))
-                TextButton(text = stringResource(R.string.stub_button), onClick = onExploreClick)
+                TextButton(text = stringResource(R.string.explore), onClick = onExploreClick)
             }
         }
 
@@ -130,7 +145,7 @@ private fun PhotosGridStubs(
     val loadState = photos.loadState
     when (loadState.append) {
         is LoadState.Loading -> {
-            repeat(4) {
+            repeat(3) {
                 ShimmerItem()
             }
         }

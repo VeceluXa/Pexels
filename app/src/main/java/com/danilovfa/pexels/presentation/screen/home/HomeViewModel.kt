@@ -62,6 +62,10 @@ class HomeViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
+    override fun saveScrollPosition(scrollPosition: Int) {
+        updateState { copy(savedScrollPosition = scrollPosition) }
+    }
+
     override fun onPhotoClicked(photo: PhotoUi) {
 
     }
@@ -130,5 +134,6 @@ class HomeViewModel @Inject constructor(
 data class HomeState(
     val query: String = "",
     val collections: List<ChipUi> = emptyList(),
-    val originalCollections: List<ChipUi> = emptyList()
+    val originalCollections: List<ChipUi> = emptyList(),
+    val savedScrollPosition: Int = 0
 )

@@ -1,6 +1,5 @@
 package com.danilovfa.pexels.data.paging
 
-import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -27,7 +26,6 @@ class PagingDataSource<T : Any>(
                 nextKey = if (content.size < pageSize) null else currentPage + 1
             )
         } catch (exception: Exception) {
-            Log.d("BugFix", "load: ${exception.message}")
             return LoadResult.Error(exception)
         }
     }

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
@@ -69,7 +68,8 @@ fun HomeScreen(
             state = state,
             photos = photos,
             controller = viewModel,
-            onPhotoClick = { photo ->
+            onPhotoClick = { photo, position ->
+                viewModel.saveScrollPosition(position)
                 navigator.navigate(DetailsScreenDestination(photo))
             },
             modifier = Modifier.padding(paddingValues)
@@ -82,7 +82,7 @@ private fun HomeLayout(
     state: HomeState,
     photos: LazyPagingItems<PhotoUi>,
     controller: HomeController,
-    onPhotoClick: (PhotoUi) -> Unit,
+    onPhotoClick: (PhotoUi, Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -102,19 +102,17 @@ private fun HomeLayout(
 
         HorizontalLoader(
             loading = photos.loadState.refresh is LoadState.Loading,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(4.dp)
+            modifier = Modifier.fillMaxWidth()
         )
 
         PhotosGrid(
             photos = photos,
             onClick = onPhotoClick,
+            savedScrollPosition = state.savedScrollPosition,
             onRetryClick = {
                 photos.retry()
             },
             onExploreClick = controller::onSearchResetClicked,
-            doShowName = false
         )
     }
 }
@@ -132,7 +130,7 @@ private fun ChipsContent(collections: List<ChipUi>, controller: HomeController) 
             .padding(horizontal = 24.dp, vertical = 12.dp),
         state = listState
     ) {
-        items(collections.size) {position ->
+        items(collections.size) { position ->
             Chip(chip = collections[position], onClick = controller::onCollectionClicked)
             if (position != collections.lastIndex) {
                 Spacer(Modifier.width(12.dp))
@@ -145,6 +143,7 @@ private fun ChipsContent(collections: List<ChipUi>, controller: HomeController) 
 @Preview
 private fun Preview(@PreviewParameter(ThemePreviewParameter::class) useDarkTheme: Boolean) {
     val controller = object : HomeController {
+        override fun saveScrollPosition(scrollPosition: Int) = Unit
         override fun onPhotoClicked(photo: PhotoUi) = Unit
         override fun onSearchQueryChanged(query: String) = Unit
         override fun onSearchResetClicked() = Unit
@@ -163,6 +162,11 @@ private fun Preview(@PreviewParameter(ThemePreviewParameter::class) useDarkTheme
     val photos = MutableStateFlow(pagingData).collectAsLazyPagingItems()
 
     PexelsTheme(darkTheme = useDarkTheme) {
-        HomeLayout(state = state, photos = photos, controller = controller, onPhotoClick = {})
+        HomeLayout(
+            state = state,
+            photos = photos,
+            controller = controller,
+            onPhotoClick = { _, _ -> }
+        )
     }
 }

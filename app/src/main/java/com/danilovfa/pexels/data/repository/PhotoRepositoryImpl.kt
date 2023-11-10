@@ -38,16 +38,24 @@ class PhotoRepositoryImpl @Inject constructor(
                 pexelsDao.getPhotos(
                     offset = pageNumber * pageSize,
                     pageSize = pageSize
-                ).map { it.toDomain() }
+                ).map { it.toDomain().copy(isBookmarked = true) }
             }
         }
 
 
-    override suspend fun addToFavorites(photo: Photo) = withContext(ioDispatcher) {
-        pexelsDao.insertPhoto(photo.toEntity())
+    override suspend fun updateBookmark(photo: Photo) = withContext(ioDispatcher) {
+        if (photo.isBookmarked) {
+            pexelsDao.insertPhoto(photo.toEntity())
+        } else {
+            pexelsDao.deletePhoto(photo.id)
+        }
     }
 
-    override suspend fun getFeaturedCollections(): List<String> = withContext(ioDispatcher) {
-        return@withContext pexelsApi.getFeaturedCollections().collections.map { it.title }
+    override suspend fun getFeaturedCollections() = withContext(ioDispatcher) {
+        pexelsApi.getFeaturedCollections().collections.map { it.title }
+    }
+
+    override suspend fun isBookmarked(id: Long): Boolean = withContext(ioDispatcher) {
+        return@withContext pexelsDao.isBookmarked(id)
     }
 }

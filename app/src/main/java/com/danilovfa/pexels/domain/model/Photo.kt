@@ -6,5 +6,6 @@ data class Photo(
     val urlCompressed: String,
     val width: Int,
     val height: Int,
-    val authorName: String
+    val authorName: String,
+    val isBookmarked: Boolean = false
 )

@@ -12,6 +12,7 @@ data class PhotoUi(
     val width: Int,
     val height: Int,
     val authorName: String,
+    val isBookmarked: Boolean = false
 ): Parcelable {
     fun toDomain() = Photo(
         id = id,
@@ -19,8 +20,21 @@ data class PhotoUi(
         urlCompressed = urlCompressed,
         width = width,
         height = height,
-        authorName = authorName
+        authorName = authorName,
+        isBookmarked = isBookmarked
     )
+
+    companion object {
+        fun empty() = PhotoUi(
+            id = 0,
+            urlOriginal = "",
+            urlCompressed = "",
+            width = 0,
+            height = 0,
+            authorName = "",
+            isBookmarked = false
+        )
+    }
 }
 
 fun Photo.toUi() = PhotoUi(
@@ -29,5 +43,6 @@ fun Photo.toUi() = PhotoUi(
     urlCompressed = urlCompressed,
     width = width,
     height = height,
-    authorName = authorName
+    authorName = authorName,
+    isBookmarked = isBookmarked
 )
