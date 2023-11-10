@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.danilovfa.pexels.presentation.common.animation.IconAnimatedVisibility
 
+@Suppress("ReusedModifierInstance")
 @Composable
 fun CircularLoader(
     loading: Boolean,

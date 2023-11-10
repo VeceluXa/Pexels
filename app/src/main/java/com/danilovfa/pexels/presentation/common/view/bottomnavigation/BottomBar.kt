@@ -11,9 +11,6 @@ import com.danilovfa.pexels.presentation.screen.NavGraphs
 import com.danilovfa.pexels.presentation.screen.appCurrentDestinationAsState
 import com.danilovfa.pexels.presentation.screen.destinations.Destination
 import com.danilovfa.pexels.presentation.screen.startAppDestination
-import com.ramcosta.composedestinations.spec.DestinationSpec
-import com.ramcosta.composedestinations.spec.Direction
-
 
 @Composable
 fun BottomBar(
@@ -40,4 +37,3 @@ fun BottomBar(
         }
     }
 }
-

@@ -146,15 +146,17 @@ private fun ErrorStub(
 
 @Composable
 private fun BookmarkButton(isBookmarked: Boolean, isLoading: Boolean, onClick: () -> Unit) {
-    val bookmarkIcon = if (isBookmarked)
+    val bookmarkIcon = if (isBookmarked) {
         PexelIcons.BookmarkFilled
-    else
+    } else {
         PexelIcons.BookmarkOutline
+    }
 
-    val tint = if (isBookmarked)
+    val tint = if (isBookmarked) {
         MaterialTheme.colorScheme.primary
-    else
+    } else {
         MaterialTheme.colorScheme.onSecondaryContainer
+    }
 
     IconButton(
         icon = bookmarkIcon,

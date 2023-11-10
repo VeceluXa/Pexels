@@ -13,7 +13,7 @@ data class PhotoUi(
     val height: Int,
     val authorName: String,
     val isBookmarked: Boolean = false
-): Parcelable {
+) : Parcelable {
     fun toDomain() = Photo(
         id = id,
         urlOriginal = urlOriginal,

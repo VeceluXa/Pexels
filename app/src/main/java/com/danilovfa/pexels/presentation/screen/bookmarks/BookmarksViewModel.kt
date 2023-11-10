@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class BookmarksViewModel @Inject constructor(
     private val photoRepository: PhotoRepository
-): StatefulViewModel<BookmarksState>(BookmarksState()), BookmarksController {
+) : StatefulViewModel<BookmarksState>(BookmarksState()), BookmarksController {
     val bookmarksFlow = MutableStateFlow<PagingData<PhotoUi>>(PagingData.empty())
     private var bookmarksJob: Job? = null
 
@@ -58,7 +58,6 @@ class BookmarksViewModel @Inject constructor(
             .onEach(bookmarksFlow::emit)
             .launchIn(viewModelScope)
     }
-
 
     companion object {
         const val LOADING_DELAY = 300L

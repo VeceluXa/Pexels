@@ -12,7 +12,6 @@ import com.danilovfa.pexels.presentation.common.view.bottomnavigation.BottomBar
 import com.danilovfa.pexels.presentation.screen.NavGraphs
 import com.ramcosta.composedestinations.DestinationsNavHost
 
-
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 internal fun RootScreen() {
@@ -29,4 +28,3 @@ internal fun RootScreen() {
         )
     }
 }
-

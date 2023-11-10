@@ -116,7 +116,10 @@ private fun ChipsContent(collections: List<ChipUi>, controller: HomeController) 
         state = listState
     ) {
         items(collections.size) { position ->
-            Chip(chip = collections[position], onClick = controller::onCollectionClicked)
+            Chip(
+                chip = collections[position],
+                onClick = { controller.onCollectionClicked(collections[position]) }
+            )
             if (position != collections.lastIndex) {
                 Spacer(Modifier.width(12.dp))
             }

@@ -1,6 +1,7 @@
 package com.danilovfa.pexels.presentation.di
 
 import com.danilovfa.pexels.domain.repository.PhotoRepository
+import com.danilovfa.pexels.presentation.screen.bookmarks.BookmarksViewModel
 import com.danilovfa.pexels.presentation.screen.details.DetailsViewModel
 import com.danilovfa.pexels.presentation.screen.home.HomeViewModel
 import dagger.Module
@@ -22,4 +23,9 @@ object AppModule {
     @ViewModelScoped
     fun provideDetailsViewModel(photoRepository: PhotoRepository): DetailsViewModel =
         DetailsViewModel(photoRepository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideBookmarksViewModel(photoRepository: PhotoRepository): BookmarksViewModel =
+        BookmarksViewModel(photoRepository)
 }

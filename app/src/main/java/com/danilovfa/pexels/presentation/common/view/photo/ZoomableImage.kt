@@ -31,6 +31,7 @@ import androidx.compose.ui.layout.ContentScale
 import kotlinx.coroutines.awaitCancellation
 import kotlinx.coroutines.launch
 
+@Suppress("ReusedModifierInstance", "LongMethod")
 @ExperimentalFoundationApi
 @Composable
 fun ZoomableImage(
@@ -125,11 +126,10 @@ fun ZoomableImage(
     }
 }
 
-suspend fun ScrollableState.setScrolling(value: Boolean) {
+suspend fun ScrollableState.setScrolling(isScrolling: Boolean) {
     scroll(scrollPriority = MutatePriority.PreventUserInput) {
-        when (value) {
-            true -> Unit
-            else -> awaitCancellation()
+        if (!isScrolling) {
+            awaitCancellation()
         }
     }
 }

@@ -22,17 +22,19 @@ import com.danilovfa.pexels.presentation.model.ChipUi
 @Composable
 fun Chip(
     chip: ChipUi,
-    onClick: (ChipUi) -> Unit
+    onClick: () -> Unit
 ) {
-    val chipColor = if (chip.isSelected)
+    val chipColor = if (chip.isSelected) {
         MaterialTheme.colorScheme.primaryContainer
-    else
+    } else {
         MaterialTheme.colorScheme.secondaryContainer
+    }
 
-    val textColor = if (chip.isSelected)
+    val textColor = if (chip.isSelected) {
         MaterialTheme.colorScheme.onPrimaryContainer
-    else
+    } else {
         MaterialTheme.colorScheme.onSecondaryContainer
+    }
 
     val fontWeight = if (chip.isSelected) FontWeight.Bold else FontWeight.Normal
 
@@ -43,7 +45,7 @@ fun Chip(
         modifier = Modifier
             .background(color = chipColor, shape = RoundedCornerShape(100.dp))
             .clip(RoundedCornerShape(100.dp))
-            .clickable { onClick(chip) }
+            .clickable { onClick() }
             .padding(horizontal = 20.dp, vertical = 10.dp)
     )
 }
@@ -61,5 +63,5 @@ private fun Preview(@PreviewParameter(ThemePreviewParameter::class) useDarkTheme
             Spacer(Modifier.padding(12.dp))
             Chip(ChipUi(text = "Watches", isSelected = false), onClick = {})
         }
-    } 
+    }
 }

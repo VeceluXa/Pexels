@@ -28,7 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val photosRepository: PhotoRepository
-): StatefulViewModel<HomeState>(HomeState()), HomeController {
+) : StatefulViewModel<HomeState>(HomeState()), HomeController {
     private var photosJob: Job? = null
     val photosFlow = MutableStateFlow<PagingData<PhotoUi>>(PagingData.empty())
 
@@ -51,7 +51,6 @@ class HomeViewModel @Inject constructor(
                 }
             }
             .launchIn(viewModelScope)
-
     }
 
     private fun loadPhotos(query: String = "") {
@@ -94,10 +93,11 @@ class HomeViewModel @Inject constructor(
         searchQueryStateFlow.update { collection.text }
 
         val collections = state.originalCollections.map {
-            if (collection.text == it.text)
+            if (collection.text == it.text) {
                 it.copy(isSelected = true)
-            else
+            } else {
                 it.copy(isSelected = false)
+            }
         }
 
         updateState { copy(collections = collections) }
@@ -106,10 +106,11 @@ class HomeViewModel @Inject constructor(
 
     private fun checkCollections(query: String) {
         val collections = state.collections.map { collection ->
-            if (collection.text == query)
+            if (collection.text == query) {
                 collection.copy(isSelected = true)
-            else
+            } else {
                 collection.copy(isSelected = false)
+            }
         }
 
         updateState { copy(collections = collections) }

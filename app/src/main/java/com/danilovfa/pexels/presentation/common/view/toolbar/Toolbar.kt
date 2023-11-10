@@ -3,7 +3,6 @@ package com.danilovfa.pexels.presentation.common.view.toolbar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -36,12 +35,13 @@ fun Toolbar(
         onNavigationIconClick = {}
     )
 }
+
 @Composable
 fun Toolbar(
     title: String,
+    onNavigationIconClick: () -> Unit,
     modifier: Modifier = Modifier,
     navigationIcon: Painter? = null,
-    onNavigationIconClick: () -> Unit,
 ) {
     Box(
         modifier = modifier

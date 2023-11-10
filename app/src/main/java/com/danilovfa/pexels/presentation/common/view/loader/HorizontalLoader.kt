@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+@Suppress("ReusedModifierInstance")
 @Composable
 fun HorizontalLoader(
     loading: Boolean,
@@ -17,7 +18,7 @@ fun HorizontalLoader(
 ) {
     AnimatedVisibility(visible = loading) {
         LinearProgressIndicator(
-            modifier = modifier.height(4.dp),
+            modifier = modifier.height(height),
             color = MaterialTheme.colorScheme.primary,
             trackColor = MaterialTheme.colorScheme.secondaryContainer
         )

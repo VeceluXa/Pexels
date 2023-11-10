@@ -99,7 +99,6 @@ fun checkForDestinations(
         if (tab.direction.route == navBackStackEntry.destination.route) {
             return true
         }
-
     }
     return false
 }

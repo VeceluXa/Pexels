@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.danilovfa.pexels.data.local.PexelsDao
 import com.danilovfa.pexels.data.local.PexelsDatabase
-import com.danilovfa.pexels.data.remote.interceptor.PexelsInterceptor
 import com.danilovfa.pexels.data.remote.PexelsApi
+import com.danilovfa.pexels.data.remote.interceptor.PexelsInterceptor
 import com.danilovfa.pexels.data.remote.interceptor.loggingInterceptor
 import com.danilovfa.pexels.data.repository.PhotoRepositoryImpl
 import com.danilovfa.pexels.domain.repository.PhotoRepository

@@ -96,6 +96,7 @@ fun PhotosGrid(
     }
 }
 
+@Suppress("MagicNumber")
 @Composable
 private fun PhotosGridFullScreenStubs(
     photos: LazyPagingItems<PhotoUi>,
@@ -120,7 +121,7 @@ private fun PhotosGridFullScreenStubs(
             }
         }
 
-        loadState.refresh is LoadState.NotLoading && photos.itemCount == 0  -> {
+        loadState.refresh is LoadState.NotLoading && photos.itemCount == 0 -> {
             val textResId = if (isBookmarksGrid) R.string.favorite_empty_stub else R.string.home_empty_stub
             Column(
                 modifier = modifier.background(MaterialTheme.colorScheme.background),
@@ -150,6 +151,7 @@ private fun PhotosGridFullScreenStubs(
     }
 }
 
+@Suppress("MagicNumber")
 @Composable
 private fun PhotosGridStubs(
     photos: LazyPagingItems<PhotoUi>,

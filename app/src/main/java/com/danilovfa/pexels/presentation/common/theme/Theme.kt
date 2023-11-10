@@ -10,6 +10,13 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.danilovfa.pexels.presentation.common.theme.PexelsColors.Black
+import com.danilovfa.pexels.presentation.common.theme.PexelsColors.Gray20
+import com.danilovfa.pexels.presentation.common.theme.PexelsColors.Gray40
+import com.danilovfa.pexels.presentation.common.theme.PexelsColors.Gray60
+import com.danilovfa.pexels.presentation.common.theme.PexelsColors.Gray80
+import com.danilovfa.pexels.presentation.common.theme.PexelsColors.Red
+import com.danilovfa.pexels.presentation.common.theme.PexelsColors.White
 
 private val DarkColorScheme = darkColorScheme(
     primary = Red,

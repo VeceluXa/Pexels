@@ -8,7 +8,7 @@ import com.danilovfa.pexels.data.local.model.PhotoEntity
     entities = [PhotoEntity::class],
     version = PexelsDatabase.VERSION
 )
-abstract class PexelsDatabase: RoomDatabase() {
+abstract class PexelsDatabase : RoomDatabase() {
     abstract val dao: PexelsDao
 
     companion object {

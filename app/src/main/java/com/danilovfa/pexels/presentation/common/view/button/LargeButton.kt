@@ -28,6 +28,7 @@ import com.danilovfa.pexels.presentation.common.preview.ThemePreviewParameter
 import com.danilovfa.pexels.presentation.common.theme.PexelsTheme
 import com.danilovfa.pexels.presentation.common.view.loader.CircularLoader
 
+@Suppress("ModifierHeightWithText")
 @Composable
 fun LargeButton(
     title: String,
@@ -73,7 +74,10 @@ fun LargeButton(
 
         Spacer(Modifier.width(18.dp))
 
-        Text(text = title)
+        Text(
+            text = title,
+            maxLines = 1
+        )
 
         Spacer(Modifier.width(38.dp))
     }

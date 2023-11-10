@@ -15,6 +15,7 @@ class PagingDataSource<T : Any>(
 
     override fun getRefreshKey(state: PagingState<Int, T>) = null
 
+    @Suppress("TooGenericExceptionCaught")
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, T> {
         return try {
             val currentPage = params.key ?: DEFAULT_PAGE

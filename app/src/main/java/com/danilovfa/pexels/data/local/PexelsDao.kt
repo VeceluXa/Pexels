@@ -12,7 +12,7 @@ interface PexelsDao {
     fun insertPhoto(photo: PhotoEntity)
 
     @Query("SELECT * FROM photoEntity LIMIT :pageSize OFFSET :offset")
-    fun getPhotos(offset: Int, pageSize: Int, ): List<PhotoEntity>
+    fun getPhotos(offset: Int, pageSize: Int,): List<PhotoEntity>
 
     @Query("DELETE FROM photoEntity WHERE id = :id")
     fun deletePhoto(id: Long)

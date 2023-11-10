@@ -28,8 +28,8 @@ import com.danilovfa.pexels.presentation.model.PhotoUi
 @Composable
 fun ColumnScope.ZoomablePhoto(
     photo: PhotoUi,
-    modifier: Modifier = Modifier,
     onError: (String) -> Unit,
+    modifier: Modifier = Modifier,
     scrollState: ScrollState? = null
 ) {
     val context = LocalContext.current

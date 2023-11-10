@@ -11,7 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
+import com.danilovfa.pexels.presentation.common.theme.PexelsColors.ShimmerCenterDark
+import com.danilovfa.pexels.presentation.common.theme.PexelsColors.ShimmerCenterLight
+import com.danilovfa.pexels.presentation.common.theme.PexelsColors.ShimmerEndDark
+import com.danilovfa.pexels.presentation.common.theme.PexelsColors.ShimmerEndLight
+import com.danilovfa.pexels.presentation.common.theme.PexelsColors.ShimmerStartDark
+import com.danilovfa.pexels.presentation.common.theme.PexelsColors.ShimmerStartLight
+
+const val START_OFFSET = 10f
 
 @Composable
 fun getShimmerBrush(): Brush {
@@ -22,18 +29,19 @@ fun getShimmerBrush(): Brush {
         animationSpec = infiniteRepeatable(
             tween(durationMillis = 900, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
-        ), label = ""
+        ),
+            label = ""
     )
 
     val colors = if (isSystemInDarkTheme()) {
-        listOf(Color(0xFF161616), Color(0xFF2A2A2A), Color(0xFF0C0C0C))
+        listOf(ShimmerStartDark, ShimmerCenterDark, ShimmerEndDark)
     } else {
-        listOf(Color(0xFFF2F2F2), Color(0xFFF8F8F8), Color(0xFFEBEBEB))
+        listOf(ShimmerStartLight, ShimmerCenterLight, ShimmerEndLight)
     }
 
     return Brush.linearGradient(
         colors = colors,
-        start = Offset(10F, 10F),
+        start = Offset(START_OFFSET, START_OFFSET),
         end = Offset(translateAnim, translateAnim)
     )
 }

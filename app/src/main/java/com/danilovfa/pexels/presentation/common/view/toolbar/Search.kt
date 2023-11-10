@@ -1,10 +1,5 @@
 package com.danilovfa.pexels.presentation.common.view.toolbar
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.scaleIn
-import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -44,8 +39,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.danilovfa.pexels.R
 import com.danilovfa.pexels.presentation.common.animation.IconAnimatedVisibility
-import com.danilovfa.pexels.presentation.common.preview.ThemePreviewParameter
 import com.danilovfa.pexels.presentation.common.drawable.PexelIcons
+import com.danilovfa.pexels.presentation.common.preview.ThemePreviewParameter
 import com.danilovfa.pexels.presentation.common.theme.PexelsTheme
 
 @Composable
@@ -87,10 +82,7 @@ fun Search(
                 enabled = enabled,
                 interactionSource = interactionSource
             )
-
         }
-
-
     }
 }
 
@@ -100,8 +92,8 @@ private fun SearchTextField(
     onValueChange: (String) -> Unit,
     onValueResetClick: () -> Unit,
     placeholderText: String,
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource
+    interactionSource: MutableInteractionSource,
+    enabled: Boolean = true
 ) {
     var textFieldValueState by remember { mutableStateOf(TextFieldValue(text = value)) }
     val textFieldValue = textFieldValueState.copy(text = value)

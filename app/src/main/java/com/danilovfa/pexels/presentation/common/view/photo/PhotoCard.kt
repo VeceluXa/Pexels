@@ -47,7 +47,6 @@ fun PhotoCard(
                 onClick()
             }
     ) {
-
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
                 .data(photo.urlCompressed)

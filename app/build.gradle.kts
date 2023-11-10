@@ -6,6 +6,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id("kotlin-parcelize")
+    id("io.gitlab.arturbosch.detekt")
 }
 
 android {
@@ -64,6 +65,12 @@ android {
     }
 }
 
+detekt {
+    config.setFrom(rootProject.file("config/detekt/detekt.yml"))
+    autoCorrect = true
+    parallel = true
+}
+
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
@@ -106,4 +113,7 @@ dependencies {
     implementation("androidx.paging:paging-compose:3.2.1")
 
     implementation("io.coil-kt:coil-compose:2.5.0")
+
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.21.0")
+    detektPlugins("ru.kode:detekt-rules-compose:1.2.2")
 }

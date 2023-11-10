@@ -42,7 +42,6 @@ class PhotoRepositoryImpl @Inject constructor(
             }
         }
 
-
     override suspend fun updateBookmark(photo: Photo) = withContext(ioDispatcher) {
         if (photo.isBookmarked) {
             pexelsDao.insertPhoto(photo.toEntity())
