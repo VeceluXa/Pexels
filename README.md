@@ -19,5 +19,6 @@ App supports multiple languages and uses Per-App Language Android 13 Feature.
 - Add [Pexel's API](https://www.pexels.com/api/documentation/) Key to `local.properties` as `PEXELS_API_KEY`
 
 # Demo
-https://github.com/VeceluXa/Pexels/assets/62480297/962cabba-2064-4f49-aeea-344bfa4d68c8
+https://github.com/VeceluXa/Pexels/assets/62480297/b03d1210-4cca-45f3-a29b-c2d7e9a2a0cf
+
 
