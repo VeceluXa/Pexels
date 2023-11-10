@@ -4,17 +4,20 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
+import com.danilovfa.pexels.domain.lce.lceFlow
 import com.danilovfa.pexels.domain.repository.PhotoRepository
-import com.danilovfa.pexels.presentation.common.StatefulViewModel
+import com.danilovfa.pexels.presentation.common.viewmodel.StatefulViewModel
 import com.danilovfa.pexels.presentation.model.ChipUi
 import com.danilovfa.pexels.presentation.model.PhotoUi
 import com.danilovfa.pexels.presentation.model.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -36,14 +39,16 @@ class HomeViewModel @Inject constructor(
         getFeaturedCollections()
     }
 
-    @OptIn(FlowPreview::class)
+    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
     private fun subscribeToSearchQueryFlow() {
         searchJob?.cancel()
         searchJob = searchQueryStateFlow
             .debounce(SEARCH_DEBOUNCE)
             .distinctUntilChanged()
-            .onEach { query ->
-                loadPhotos(query)
+            .flatMapLatest { query ->
+                lceFlow {
+                    emit(loadPhotos(query))
+                }
             }
             .launchIn(viewModelScope)
 
@@ -66,11 +71,8 @@ class HomeViewModel @Inject constructor(
         updateState { copy(savedScrollPosition = scrollPosition) }
     }
 
-    override fun onPhotoClicked(photo: PhotoUi) {
-
-    }
-
     override fun onSearchQueryChanged(query: String) {
+        saveScrollPosition(0)
         updateState { copy(query = query) }
         searchQueryStateFlow.update { query }
         checkCollections(query)

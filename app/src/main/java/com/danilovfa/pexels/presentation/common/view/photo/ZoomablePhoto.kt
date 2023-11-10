@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,7 +48,18 @@ fun ColumnScope.ZoomablePhoto(
             model = ImageRequest.Builder(context)
                 .data(photo.urlCompressed)
                 .scale(Scale.FIT)
-                // TODO Add error handling
+//                .listener(object : ImageRequest.Listener {
+//                    override fun onError(request: ImageRequest, result: ErrorResult) {
+//                        super.onError(request, result)
+//                        Log.d("OnError", "onError: ${result.throwable.message}")
+//                        onError(result.throwable.message ?: "")
+//                    }
+//                })
+//                .target(
+//                    onError = {
+//                        onError("")
+//                    }
+//                )
                 .crossfade(true)
                 .memoryCachePolicy(CachePolicy.ENABLED)
                 .build()
@@ -58,17 +70,10 @@ fun ColumnScope.ZoomablePhoto(
             imageAlign = Alignment.Center,
             contentScale = ContentScale.Crop,
             scrollState = scrollState,
+            shape = RoundedCornerShape(16.dp),
+            backgroundColor = MaterialTheme.colorScheme.background,
             modifier = Modifier.fillMaxSize()
         )
-
-//        AsyncImage(
-//            model = ,
-//            contentDescription = photo.authorName,
-//            alignment = Alignment.Center,
-//            contentScale = ContentScale.Crop,
-//            modifier = Modifier
-//                .fillMaxSize()
-//        )
     }
 }
 

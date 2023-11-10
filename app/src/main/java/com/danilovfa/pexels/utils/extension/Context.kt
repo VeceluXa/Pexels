@@ -4,8 +4,9 @@ import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 
-internal fun Context.sharePhoto(uri: Uri) {
+fun Context.sharePhoto(uri: Uri) {
     val shareCardIntent = Intent().apply {
         action = Intent.ACTION_SEND
         type = "image/png"
@@ -14,6 +15,9 @@ internal fun Context.sharePhoto(uri: Uri) {
         flags += Intent.FLAG_GRANT_READ_URI_PERMISSION
     }
     val shareIntent = Intent.createChooser(shareCardIntent, "Share photo")
-//    shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     startActivity(shareIntent)
+}
+
+fun Context.showError(error: Throwable) {
+    Toast.makeText(this, error.message.toString(), Toast.LENGTH_SHORT).show()
 }

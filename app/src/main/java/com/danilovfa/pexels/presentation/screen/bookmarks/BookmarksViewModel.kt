@@ -1,6 +1,5 @@
 package com.danilovfa.pexels.presentation.screen.bookmarks
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LoadState
 import androidx.paging.LoadStates
@@ -8,7 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.danilovfa.pexels.domain.repository.PhotoRepository
-import com.danilovfa.pexels.presentation.common.StatefulViewModel
+import com.danilovfa.pexels.presentation.common.viewmodel.StatefulViewModel
 import com.danilovfa.pexels.presentation.model.PhotoUi
 import com.danilovfa.pexels.presentation.model.toUi
 import dagger.hilt.android.lifecycle.HiltViewModel

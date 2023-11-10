@@ -10,7 +10,7 @@ import com.danilovfa.pexels.domain.lce.LceState
 import com.danilovfa.pexels.domain.lce.lceFlow
 import com.danilovfa.pexels.domain.lce.onEachContent
 import com.danilovfa.pexels.domain.repository.PhotoRepository
-import com.danilovfa.pexels.presentation.common.StatefulViewModel
+import com.danilovfa.pexels.presentation.common.viewmodel.StatefulViewModel
 import com.danilovfa.pexels.presentation.model.PhotoUi
 import com.danilovfa.pexels.utils.extension.save
 import com.danilovfa.pexels.utils.extension.sharePhoto

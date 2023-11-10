@@ -10,16 +10,11 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,7 +41,6 @@ import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import kotlinx.coroutines.flow.MutableStateFlow
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 @RootNavGraph(start = true)
 @Destination
@@ -57,24 +51,15 @@ fun HomeScreen(
     val state by viewModel.stateFlow.collectAsState()
     val photos = viewModel.photosFlow.collectAsLazyPagingItems()
 
-    val snackbarHostState = remember { SnackbarHostState() }
-
-    Scaffold(
-        snackbarHost = {
-            SnackbarHost(hostState = snackbarHostState)
+    HomeLayout(
+        state = state,
+        photos = photos,
+        controller = viewModel,
+        onPhotoClick = { photo, position ->
+            viewModel.saveScrollPosition(position)
+            navigator.navigate(DetailsScreenDestination(photo))
         }
-    ) { paddingValues ->
-        HomeLayout(
-            state = state,
-            photos = photos,
-            controller = viewModel,
-            onPhotoClick = { photo, position ->
-                viewModel.saveScrollPosition(position)
-                navigator.navigate(DetailsScreenDestination(photo))
-            },
-            modifier = Modifier.padding(paddingValues)
-        )
-    }
+    )
 }
 
 @Composable
@@ -144,7 +129,6 @@ private fun ChipsContent(collections: List<ChipUi>, controller: HomeController) 
 private fun Preview(@PreviewParameter(ThemePreviewParameter::class) useDarkTheme: Boolean) {
     val controller = object : HomeController {
         override fun saveScrollPosition(scrollPosition: Int) = Unit
-        override fun onPhotoClicked(photo: PhotoUi) = Unit
         override fun onSearchQueryChanged(query: String) = Unit
         override fun onSearchResetClicked() = Unit
         override fun onCollectionClicked(collection: ChipUi) = Unit

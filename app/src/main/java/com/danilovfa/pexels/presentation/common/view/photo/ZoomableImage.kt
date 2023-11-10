@@ -7,7 +7,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.gestures.awaitEachGesture
-import androidx.compose.foundation.gestures.awaitFirstDown
 import androidx.compose.foundation.gestures.calculatePan
 import androidx.compose.foundation.gestures.calculateRotation
 import androidx.compose.foundation.gestures.calculateZoom
@@ -61,7 +60,7 @@ fun ZoomableImage(
             .combinedClickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = null,
-                onClick = { /* NADA :) */ },
+                onClick = { },
                 onDoubleClick = {
                     if (scale >= 2f) {
                         scale = 1f
@@ -73,7 +72,6 @@ fun ZoomableImage(
             .pointerInput(Unit) {
                 if (isZoomable) {
                     awaitEachGesture {
-                        awaitFirstDown()
                         do {
                             val event = awaitPointerEvent()
                             scale *= event.calculateZoom()

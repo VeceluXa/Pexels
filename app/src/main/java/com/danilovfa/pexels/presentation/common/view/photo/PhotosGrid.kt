@@ -1,5 +1,6 @@
 package com.danilovfa.pexels.presentation.common.view.photo
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
@@ -32,6 +34,7 @@ import com.danilovfa.pexels.presentation.common.drawable.PexelIcons
 import com.danilovfa.pexels.presentation.common.view.button.TextButton
 import com.danilovfa.pexels.presentation.common.view.loader.getShimmerBrush
 import com.danilovfa.pexels.presentation.model.PhotoUi
+import com.danilovfa.pexels.utils.extension.showError
 import kotlin.random.Random
 
 @Composable
@@ -45,9 +48,10 @@ fun PhotosGrid(
     isBookmarksGrid: Boolean = false
 ) {
     val listState = rememberLazyStaggeredGridState()
+    val context = LocalContext.current
 
     LaunchedEffect(savedScrollPosition, photos.itemCount) {
-        if (photos.itemCount > 0 && listState.firstVisibleItemIndex == 0) {
+        if (photos.itemCount > 0) {
             listState.scrollToItem(savedScrollPosition)
         }
     }
@@ -73,7 +77,11 @@ fun PhotosGrid(
             }
 
             item {
-                PhotosGridStubs(photos, onRetryClick)
+                PhotosGridStubs(
+                    photos = photos,
+                    onRetryClick = onRetryClick,
+                    context = context
+                )
             }
         }
 
@@ -82,6 +90,7 @@ fun PhotosGrid(
             onRetryClick = onRetryClick,
             onExploreClick = onExploreClick,
             isBookmarksGrid = isBookmarksGrid,
+            context = context,
             modifier = Modifier.fillMaxSize()
         )
     }
@@ -93,7 +102,8 @@ private fun PhotosGridFullScreenStubs(
     onRetryClick: () -> Unit,
     onExploreClick: () -> Unit,
     isBookmarksGrid: Boolean,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    context: Context = LocalContext.current
 ) {
     val loadState = photos.loadState
     when {
@@ -124,6 +134,9 @@ private fun PhotosGridFullScreenStubs(
         }
 
         loadState.refresh is LoadState.Error -> {
+            val error = (loadState.refresh as LoadState.Error).error
+            context.showError(error)
+
             Column(
                 modifier = modifier.background(MaterialTheme.colorScheme.background),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -141,6 +154,7 @@ private fun PhotosGridFullScreenStubs(
 private fun PhotosGridStubs(
     photos: LazyPagingItems<PhotoUi>,
     onRetryClick: () -> Unit,
+    context: Context = LocalContext.current
 ) {
     val loadState = photos.loadState
     when (loadState.append) {
@@ -151,6 +165,9 @@ private fun PhotosGridStubs(
         }
 
         is LoadState.Error -> {
+            val error = (loadState.append as LoadState.Error).error
+            context.showError(error)
+
             TextButton(
                 text = stringResource(R.string.error_button),
                 onClick = onRetryClick,
