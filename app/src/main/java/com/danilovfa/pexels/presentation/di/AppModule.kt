@@ -1,5 +1,6 @@
 package com.danilovfa.pexels.presentation.di
 
+import com.danilovfa.pexels.domain.repository.BookmarkRepository
 import com.danilovfa.pexels.domain.repository.PhotoRepository
 import com.danilovfa.pexels.presentation.screen.bookmarks.BookmarksViewModel
 import com.danilovfa.pexels.presentation.screen.details.DetailsViewModel
@@ -21,11 +22,11 @@ object AppModule {
 
     @Provides
     @ViewModelScoped
-    fun provideDetailsViewModel(photoRepository: PhotoRepository): DetailsViewModel =
-        DetailsViewModel(photoRepository)
+    fun provideDetailsViewModel(bookmarkRepository: BookmarkRepository): DetailsViewModel =
+        DetailsViewModel(bookmarkRepository)
 
     @Provides
     @ViewModelScoped
-    fun provideBookmarksViewModel(photoRepository: PhotoRepository): BookmarksViewModel =
-        BookmarksViewModel(photoRepository)
+    fun provideBookmarksViewModel(bookmarkRepository: BookmarkRepository): BookmarksViewModel =
+        BookmarksViewModel(bookmarkRepository)
 }

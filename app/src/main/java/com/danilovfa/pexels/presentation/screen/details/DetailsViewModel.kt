@@ -9,7 +9,7 @@ import coil.request.ImageRequest
 import com.danilovfa.pexels.domain.lce.LceState
 import com.danilovfa.pexels.domain.lce.lceFlow
 import com.danilovfa.pexels.domain.lce.onEachContent
-import com.danilovfa.pexels.domain.repository.PhotoRepository
+import com.danilovfa.pexels.domain.repository.BookmarkRepository
 import com.danilovfa.pexels.presentation.common.viewmodel.StatefulViewModel
 import com.danilovfa.pexels.presentation.model.PhotoUi
 import com.danilovfa.pexels.utils.extension.save
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val photoRepository: PhotoRepository
+    private val bookmarkRepository: BookmarkRepository
 ) : StatefulViewModel<DetailsState>(DetailsState()), DetailsController {
     private var downloadJob: Job? = null
     private var bookmarkJob: Job? = null
@@ -40,7 +40,7 @@ class DetailsViewModel @Inject constructor(
     private fun checkIfBookmarked() {
         bookmarkJob?.cancel()
         bookmarkJob = lceFlow {
-            emit(photoRepository.isBookmarked(state.photo.id))
+            emit(bookmarkRepository.isBookmarked(state.photo.id))
         }
             .onEach { updateState { copy(bookmarkState = it) } }
             .onEachContent { isBookmarked ->
@@ -53,7 +53,7 @@ class DetailsViewModel @Inject constructor(
         val newPhoto = state.photo.copy(isBookmarked = state.photo.isBookmarked.not())
         bookmarkJob?.cancel()
         bookmarkJob = lceFlow {
-            emit(photoRepository.updateBookmark(newPhoto.toDomain()))
+            emit(bookmarkRepository.updateBookmark(newPhoto.toDomain()))
         }
             .onEach { updateState { copy(bookmarkState = it) } }
             .onEachContent {

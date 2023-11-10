@@ -7,7 +7,9 @@ import com.danilovfa.pexels.data.local.PexelsDatabase
 import com.danilovfa.pexels.data.remote.PexelsApi
 import com.danilovfa.pexels.data.remote.interceptor.PexelsInterceptor
 import com.danilovfa.pexels.data.remote.interceptor.loggingInterceptor
+import com.danilovfa.pexels.data.repository.BookmarkRepositoryImpl
 import com.danilovfa.pexels.data.repository.PhotoRepositoryImpl
+import com.danilovfa.pexels.domain.repository.BookmarkRepository
 import com.danilovfa.pexels.domain.repository.PhotoRepository
 import com.danilovfa.pexels.utils.Constants.BASE_URL
 import dagger.Module
@@ -15,7 +17,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor.*
 import retrofit2.Retrofit
@@ -64,10 +65,11 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun providePhotoRepository(pexelsDao: PexelsDao, pexelsApi: PexelsApi): PhotoRepository =
-        PhotoRepositoryImpl(
-            pexelsDao = pexelsDao,
-            pexelsApi = pexelsApi,
-            ioDispatcher = Dispatchers.IO
-        )
+    fun providePhotoRepository(pexelsApi: PexelsApi): PhotoRepository =
+        PhotoRepositoryImpl(pexelsApi = pexelsApi)
+
+    @Provides
+    @Singleton
+    fun provideBookmarkRepository(pexelsDao: PexelsDao): BookmarkRepository =
+        BookmarkRepositoryImpl(pexelsDao = pexelsDao)
 }

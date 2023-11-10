@@ -6,7 +6,7 @@ import androidx.paging.LoadStates
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.danilovfa.pexels.domain.repository.PhotoRepository
+import com.danilovfa.pexels.domain.repository.BookmarkRepository
 import com.danilovfa.pexels.presentation.common.viewmodel.StatefulViewModel
 import com.danilovfa.pexels.presentation.model.PhotoUi
 import com.danilovfa.pexels.presentation.model.toUi
@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BookmarksViewModel @Inject constructor(
-    private val photoRepository: PhotoRepository
+    private val bookmarkRepository: BookmarkRepository
 ) : StatefulViewModel<BookmarksState>(BookmarksState()), BookmarksController {
     val bookmarksFlow = MutableStateFlow<PagingData<PhotoUi>>(PagingData.empty())
     private var bookmarksJob: Job? = null
@@ -47,7 +47,7 @@ class BookmarksViewModel @Inject constructor(
 
     fun getBookmarks() {
         bookmarksJob?.cancel()
-        bookmarksJob = photoRepository.getFavoritePhotos()
+        bookmarksJob = bookmarkRepository.getBookmarks()
             .cachedIn(viewModelScope)
             .onEach { delay(LOADING_DELAY) }
             .map { pagingData ->
