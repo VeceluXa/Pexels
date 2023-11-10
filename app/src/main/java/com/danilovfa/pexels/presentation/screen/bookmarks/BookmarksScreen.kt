@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.MaterialTheme
@@ -32,6 +31,7 @@ import com.danilovfa.pexels.R
 import com.danilovfa.pexels.presentation.common.preview.ThemePreviewParameter
 import com.danilovfa.pexels.presentation.common.theme.PexelsTheme
 import com.danilovfa.pexels.presentation.common.view.loader.HorizontalLoader
+import com.danilovfa.pexels.presentation.common.view.loader.PullRefreshIndicator
 import com.danilovfa.pexels.presentation.common.view.photo.PhotosGrid
 import com.danilovfa.pexels.presentation.common.view.toolbar.Toolbar
 import com.danilovfa.pexels.presentation.model.PhotoUi
@@ -145,10 +145,8 @@ private fun BookmarksLayout(
             )
 
             PullRefreshIndicator(
-                refreshing = isRefreshing,
+                isRefreshing = isRefreshing,
                 state = pullRefreshState,
-                backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
-                contentColor = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.align(Alignment.TopCenter)
             )
         }
