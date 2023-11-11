@@ -2,6 +2,7 @@ package com.danilovfa.pexels.presentation.screen.details
 
 import android.content.Context
 import androidx.activity.compose.BackHandler
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,6 +21,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -39,6 +42,7 @@ import com.danilovfa.pexels.presentation.common.view.photo.ZoomablePhoto
 import com.danilovfa.pexels.presentation.common.view.toolbar.Toolbar
 import com.danilovfa.pexels.presentation.model.PhotoUi
 import com.danilovfa.pexels.presentation.screen.destinations.HomeScreenDestination
+import com.danilovfa.pexels.utils.extension.hasNetwork
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 import com.ramcosta.composedestinations.result.ResultBackNavigator
@@ -172,19 +176,24 @@ private fun PhotoButtons(
     controller: DetailsController
 ) {
     val context = LocalContext.current
+    val hasNetwork by remember(context) { mutableStateOf(context.hasNetwork()) }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(24.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        LargeButton(
-            title = stringResource(R.string.download),
-            leadingIcon = PexelIcons.Download,
-            loading = state.isDownloading,
-            onClick = { controller.onDownloadClicked(context) }
-        )
+        AnimatedVisibility(visible = hasNetwork) {
+            LargeButton(
+                title = stringResource(R.string.download),
+                leadingIcon = PexelIcons.Download,
+                loading = state.isDownloading,
+                onClick = { controller.onDownloadClicked(context) }
+            )
+        }
+
+        Spacer(Modifier.weight(1f))
 
         BookmarkButton(
             isBookmarked = state.photo.isBookmarked,
