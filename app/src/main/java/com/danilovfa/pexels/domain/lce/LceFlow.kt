@@ -63,3 +63,7 @@ fun LceStateFlow.onEachContent(onContent: suspend () -> Unit): Flow<LceState> {
 fun <T> LceFlow<T>.onEachContent(onContent: suspend (T) -> Unit): LceFlow<T> {
     return onEachLceType<Lce<T>, Lce.Content<T>> { onContent(it.value) }
 }
+
+inline fun <T, R> LceFlow<T>.mapLceContent(crossinline transform: suspend (T) -> R): LceFlow<R> {
+    return map { lce -> lce.mapContent { transform(it) } }
+}

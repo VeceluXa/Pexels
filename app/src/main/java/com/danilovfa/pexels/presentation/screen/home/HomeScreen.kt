@@ -16,6 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -36,6 +37,8 @@ import com.danilovfa.pexels.presentation.common.view.toolbar.Search
 import com.danilovfa.pexels.presentation.model.ChipUi
 import com.danilovfa.pexels.presentation.model.PhotoUi
 import com.danilovfa.pexels.presentation.screen.destinations.DetailsScreenDestination
+import com.danilovfa.pexels.utils.extension.hasNetwork
+import com.danilovfa.pexels.utils.extension.showMessage
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.annotation.RootNavGraph
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
@@ -50,6 +53,13 @@ fun HomeScreen(
 ) {
     val state by viewModel.stateFlow.collectAsState()
     val photos = viewModel.photosFlow.collectAsLazyPagingItems()
+
+    val context = LocalContext.current
+    LaunchedEffect(context) {
+        if (context.hasNetwork().not()) {
+            context.showMessage(R.string.no_connection)
+        }
+    }
 
     HomeLayout(
         state = state,
@@ -97,7 +107,7 @@ private fun HomeLayout(
             onRetryClick = {
                 photos.retry()
             },
-            onExploreClick = controller::onSearchResetClicked,
+            onExploreClick = controller::onExploreClicked,
         )
     }
 }
@@ -135,6 +145,7 @@ private fun Preview(@PreviewParameter(ThemePreviewParameter::class) useDarkTheme
         override fun onSearchQueryChanged(query: String) = Unit
         override fun onSearchResetClicked() = Unit
         override fun onCollectionClicked(collection: ChipUi) = Unit
+        override fun onExploreClicked() = Unit
     }
 
     val state = HomeState()

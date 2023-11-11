@@ -5,6 +5,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.danilovfa.pexels.domain.lce.lceFlow
+import com.danilovfa.pexels.domain.lce.mapLceContent
+import com.danilovfa.pexels.domain.lce.onEachContent
 import com.danilovfa.pexels.domain.repository.PhotoRepository
 import com.danilovfa.pexels.presentation.common.viewmodel.StatefulViewModel
 import com.danilovfa.pexels.presentation.model.ChipUi
@@ -22,7 +24,6 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -79,13 +80,18 @@ class HomeViewModel @Inject constructor(
 
     override fun onSearchResetClicked() = onSearchQueryChanged("")
     private fun getFeaturedCollections() {
-        viewModelScope.launch {
-            val collections = photosRepository.getFeaturedCollections().map { title ->
-                ChipUi(text = title, isSelected = false)
-            }
-
-            updateState { copy(collections = collections, originalCollections = collections) }
+        lceFlow {
+            emit(photosRepository.getFeaturedCollections())
         }
+            .mapLceContent { collections ->
+                collections.map { title ->
+                    ChipUi(text = title, isSelected = false)
+                }
+            }
+            .onEachContent { collections ->
+                updateState { copy(collections = collections, originalCollections = collections) }
+            }
+            .launchIn(viewModelScope)
     }
 
     override fun onCollectionClicked(collection: ChipUi) {
@@ -102,6 +108,11 @@ class HomeViewModel @Inject constructor(
 
         updateState { copy(collections = collections) }
         changeSelectedCollectionPosition()
+    }
+
+    override fun onExploreClicked() {
+        subscribeToSearchQueryFlow()
+        getFeaturedCollections()
     }
 
     private fun checkCollections(query: String) {

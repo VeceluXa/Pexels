@@ -1,6 +1,8 @@
 package com.danilovfa.pexels.presentation.common.view.loader
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -16,7 +18,11 @@ fun HorizontalLoader(
     modifier: Modifier = Modifier,
     height: Dp = 4.dp
 ) {
-    AnimatedVisibility(visible = loading) {
+    AnimatedVisibility(
+        visible = loading,
+        enter = slideInVertically(),
+        exit = slideOutHorizontally()
+    ) {
         LinearProgressIndicator(
             modifier = modifier.height(height),
             color = MaterialTheme.colorScheme.primary,

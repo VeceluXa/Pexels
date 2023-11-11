@@ -9,4 +9,5 @@ interface HomeController {
     fun onSearchQueryChanged(query: String)
     fun onSearchResetClicked()
     fun onCollectionClicked(collection: ChipUi)
+    fun onExploreClicked()
 }

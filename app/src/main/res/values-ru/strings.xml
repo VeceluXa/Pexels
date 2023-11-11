@@ -11,4 +11,5 @@
     <string name="download">Скачать</string>
     <string name="details_error">Фото не было найдено</string>
     <string name="bookmarks">Сохраненные</string>
+    <string name="no_connection">Отсутствует Интернет соединение</string>
 </resources>

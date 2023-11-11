@@ -20,3 +20,11 @@ sealed class Lce<out C> : LceState {
         fun <C> of(content: C): Lce<C> = Content(content)
     }
 }
+
+inline fun <T, R> Lce<T>.mapContent(map: (T) -> R): Lce<R> {
+    return when (this) {
+        is Lce.Loading -> this
+        is Lce.Error -> this
+        is Lce.Content -> Lce.of(map.invoke(value))
+    }
+}

@@ -17,7 +17,9 @@ object AppModule {
 
     @Provides
     @ViewModelScoped
-    fun provideHomeViewModel(photoRepository: PhotoRepository): HomeViewModel =
+    fun provideHomeViewModel(
+        photoRepository: PhotoRepository
+    ): HomeViewModel =
         HomeViewModel(photoRepository)
 
     @Provides

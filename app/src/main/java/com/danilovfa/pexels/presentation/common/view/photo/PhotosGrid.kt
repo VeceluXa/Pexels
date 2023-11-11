@@ -40,7 +40,7 @@ import kotlin.random.Random
 @Composable
 fun PhotosGrid(
     photos: LazyPagingItems<PhotoUi>,
-    onClick: (PhotoUi, Int) -> Unit,
+    onClick: (photo: PhotoUi, savedScrollPosition: Int) -> Unit,
     onRetryClick: () -> Unit,
     onExploreClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -70,7 +70,7 @@ fun PhotosGrid(
                 photos[position]?.let { photo ->
                     PhotoCard(
                         photo = photo,
-                        onClick = { onClick(photo, position) },
+                        onClick = { onClick(photo, listState.firstVisibleItemIndex) },
                         doShowName = isBookmarksGrid
                     )
                 }
