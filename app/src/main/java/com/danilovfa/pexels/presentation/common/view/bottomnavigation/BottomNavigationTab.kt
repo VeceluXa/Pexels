@@ -1,14 +1,9 @@
 package com.danilovfa.pexels.presentation.common.view.bottomnavigation
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
@@ -16,7 +11,6 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import com.ramcosta.composedestinations.navigation.navigate
@@ -31,19 +25,6 @@ internal fun RowScope.BottomNavigationTab(
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.weight(1f)) {
-        if (selected) {
-            Spacer(
-                Modifier
-                    .width(24.dp)
-                    .height(2.dp)
-                    .background(
-                        color = MaterialTheme.colorScheme.primary,
-                        shape = RoundedCornerShape(10.dp)
-                    )
-                    .align(Alignment.TopCenter)
-            )
-        }
-
         this@BottomNavigationTab.NavigationBarItem(
             icon = {
                 Box(modifier = Modifier.wrapContentWidth(), contentAlignment = Alignment.Center) {
