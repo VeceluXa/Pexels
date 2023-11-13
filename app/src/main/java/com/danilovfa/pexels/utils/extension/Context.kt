@@ -29,6 +29,10 @@ fun Context.showMessage(@StringRes messageResId: Int) {
     Toast.makeText(this, getString(messageResId), Toast.LENGTH_SHORT).show()
 }
 
+fun Context.showMessage(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
 fun Context.hasNetwork(): Boolean {
     var isConnected = false
     val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

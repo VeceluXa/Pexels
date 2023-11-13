@@ -2,6 +2,7 @@ package com.danilovfa.pexels.data.remote
 
 import com.danilovfa.pexels.data.remote.model.CollectionsEnvelopeResponse
 import com.danilovfa.pexels.data.remote.model.PhotosEnvelopeResponse
+import com.danilovfa.pexels.utils.Constants.DEFAULT_PAGE_NUMBER
 import com.danilovfa.pexels.utils.Constants.DEFAULT_PAGE_SIZE
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -18,7 +19,7 @@ interface PexelsApi {
 
     @GET("curated")
     suspend fun getPopularPhotos(
-        @Query("page") page: Int,
+        @Query("page") page: Int = DEFAULT_PAGE_NUMBER,
         @Query("per_page") pageSize: Int = DEFAULT_PAGE_SIZE
     ): PhotosEnvelopeResponse
 

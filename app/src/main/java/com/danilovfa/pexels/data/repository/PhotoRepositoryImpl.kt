@@ -15,6 +15,11 @@ class PhotoRepositoryImpl @Inject constructor(
     private val pexelsApi: PexelsApi,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : PhotoRepository {
+
+    override suspend fun cacheCuratedPhotos() = withContext(ioDispatcher) {
+        pexelsApi.getPopularPhotos().photos.map { it.toDomain() }
+    }
+
     override fun getPhotos(query: String): Flow<PagingData<Photo>> =
         pagingFlow { pageNumber, pageSize ->
             withContext(ioDispatcher) {

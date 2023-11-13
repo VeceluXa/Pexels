@@ -5,6 +5,7 @@ import com.danilovfa.pexels.domain.repository.PhotoRepository
 import com.danilovfa.pexels.presentation.screen.bookmarks.BookmarksViewModel
 import com.danilovfa.pexels.presentation.screen.details.DetailsViewModel
 import com.danilovfa.pexels.presentation.screen.home.HomeViewModel
+import com.danilovfa.pexels.presentation.screen.root.MainViewModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,9 +18,12 @@ object AppModule {
 
     @Provides
     @ViewModelScoped
-    fun provideHomeViewModel(
-        photoRepository: PhotoRepository
-    ): HomeViewModel =
+    fun provideMainViewModel(photoRepository: PhotoRepository): MainViewModel =
+        MainViewModel(photoRepository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideHomeViewModel(photoRepository: PhotoRepository): HomeViewModel =
         HomeViewModel(photoRepository)
 
     @Provides
