@@ -105,6 +105,7 @@ private fun HomeLayout(
             onClick = onPhotoClick,
             savedScrollPosition = state.savedScrollPosition,
             onRetryClick = {
+                controller.onRetryClicked()
                 photos.retry()
             },
             onExploreClick = controller::onExploreClicked,
@@ -146,6 +147,7 @@ private fun Preview(@PreviewParameter(ThemePreviewParameter::class) useDarkTheme
         override fun onSearchResetClicked() = Unit
         override fun onCollectionClicked(collection: ChipUi) = Unit
         override fun onExploreClicked() = Unit
+        override fun onRetryClicked() = Unit
     }
 
     val state = HomeState()

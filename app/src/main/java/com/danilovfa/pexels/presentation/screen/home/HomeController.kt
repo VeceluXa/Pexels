@@ -10,4 +10,5 @@ interface HomeController {
     fun onSearchResetClicked()
     fun onCollectionClicked(collection: ChipUi)
     fun onExploreClicked()
+    fun onRetryClicked()
 }

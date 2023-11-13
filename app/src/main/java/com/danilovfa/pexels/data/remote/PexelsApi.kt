@@ -2,6 +2,7 @@ package com.danilovfa.pexels.data.remote
 
 import com.danilovfa.pexels.data.remote.model.CollectionsEnvelopeResponse
 import com.danilovfa.pexels.data.remote.model.PhotosEnvelopeResponse
+import com.danilovfa.pexels.utils.Constants.COLLECTIONS_PAGE_SIZE
 import com.danilovfa.pexels.utils.Constants.DEFAULT_PAGE_NUMBER
 import com.danilovfa.pexels.utils.Constants.DEFAULT_PAGE_SIZE
 import retrofit2.http.GET
@@ -24,5 +25,7 @@ interface PexelsApi {
     ): PhotosEnvelopeResponse
 
     @GET("collections/featured")
-    suspend fun getFeaturedCollections(): CollectionsEnvelopeResponse
+    suspend fun getFeaturedCollections(
+        @Query("per_page") pageSize: Int = COLLECTIONS_PAGE_SIZE
+    ): CollectionsEnvelopeResponse
 }

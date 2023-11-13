@@ -31,10 +31,12 @@ class HomeViewModel @Inject constructor(
     private val photosRepository: PhotoRepository
 ) : StatefulViewModel<HomeState>(HomeState()), HomeController {
     private var photosJob: Job? = null
-    val photosFlow = MutableStateFlow<PagingData<PhotoUi>>(PagingData.empty())
-
+    private var collectionsJob: Job? = null
     private var searchJob: Job? = null
+
+    val photosFlow = MutableStateFlow<PagingData<PhotoUi>>(PagingData.empty())
     private val searchQueryStateFlow = MutableStateFlow("")
+
     init {
         subscribeToSearchQueryFlow()
         getFeaturedCollections()
@@ -80,7 +82,8 @@ class HomeViewModel @Inject constructor(
 
     override fun onSearchResetClicked() = onSearchQueryChanged("")
     private fun getFeaturedCollections() {
-        lceFlow {
+        collectionsJob?.cancel()
+        collectionsJob = lceFlow {
             emit(photosRepository.getFeaturedCollections())
         }
             .mapLceContent { collections ->
@@ -112,7 +115,15 @@ class HomeViewModel @Inject constructor(
 
     override fun onExploreClicked() {
         subscribeToSearchQueryFlow()
-        getFeaturedCollections()
+        if (state.collections.isEmpty()) {
+            getFeaturedCollections()
+        }
+    }
+
+    override fun onRetryClicked() {
+        if (state.collections.isEmpty()) {
+            getFeaturedCollections()
+        }
     }
 
     private fun checkCollections(query: String) {
